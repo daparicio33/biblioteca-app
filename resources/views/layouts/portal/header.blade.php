@@ -10,7 +10,7 @@
             <ul class="nav nav-fill tm-main-nav-ul">
                 <li class="nav-item"><a class="nav-link active" href="{{ route('index') }}">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('programas') }}">Programas</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Categorias</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('categorias') }}">Categorias</a></li>
                 {{-- <li class="nav-item"><a class="nav-link" href="team.html">Our Team</a></li> --}}
                 <li class="nav-item">
                     @if (Auth::check())

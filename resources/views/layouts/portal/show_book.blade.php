@@ -13,7 +13,7 @@
             <p class="tm-margin-b-p">
                 {!! $book->content !!}
             </p>
-            <p class="tm-blue-text tm-margin-b-s">Categorias: @foreach ( $book->categories as $categorie ) <a href="" class="btn btn-danger">{{ $categorie->name }}</a> @endforeach</p>
+            <p class="tm-blue-text tm-margin-b-s">Categorias: @foreach ( $book->categories as $categorie ) <a href="{{ route('show_book_categorias',$categorie->id) }}" class="btn btn-danger">{{ $categorie->name }}</a> @endforeach</p>
             <p class="tm-blue-text tm-margin-b-s">Etiquetas: @foreach ( $book->tags as $tag ) <a href="" class="btn btn-danger">{{ $tag->name }}</a> @endforeach</p>
             <p class="tm-blue-text tm-margin-b">Valoracion: @for ($i = 0; $i < 5; $i++) <img src="{{ asset('img/star.png')}}" alt="Star image"> @endfor</p>
             <a href="{{ Storage::url($book->url) }}" target="_blank" class="tm-btn tm-btn-gray tm-margin-r-20 tm-margin-b-s">Ver Libro</a>

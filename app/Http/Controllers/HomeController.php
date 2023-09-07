@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\BookView;
 use App\Models\Carrera;
+use App\Models\Categorie;
+use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -31,6 +35,28 @@ class HomeController extends Controller
     public function show_book($id){
         $book = Book::findOrFail($id);
         $books = Book::take(4)->get();
+        //aca registramos la visitas.
+        try {
+            //code...
+            /* $view = new BookView();
+            $view->user_id = auth()->id();
+            $view->book_id = $book->id;
+            $view->date = Carbon::now();
+            $view->save(); */
+            $view = BookView::updateOrInsert([
+                'book_id'=>$book->id,
+                'user_id'=>auth()->id()
+            ],[
+                'book_id'=>$book->id,
+                'user_id'=>auth()->id(),
+                'date'=>Carbon::now(),
+                'time'=>Carbon::now()->format('H:i:s')
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th->getMessage());
+            return view('books.show',compact('book','books'));
+        }
         return view('books.show',compact('book','books'));
     }
     public function show_book_programas($id){
@@ -52,6 +78,18 @@ class HomeController extends Controller
         return view('books.search',compact('books'));
     }
     public function index_panel(){
-        return view('panel.index');
+        $views = BookView::where('user_id','=',auth()->id())->orderBy('date','desc')->orderBy('time','desc')->get();
+        return view('panel.index',compact('views'));
+    }
+    public function categorias(){
+        $categories = Categorie::orderBy('name','asc')->get();
+        return view('categorias.index',compact('categories'));
+    }
+    public function show_book_categorias($id){
+        $categorie = Categorie::findOrFail($id);
+        $books = Book::whereHas('categories',function($query) use($id){
+            $query->where('categorie_id','=',$id);
+        })->get();
+        return view('categorias.show',compact('books','categorie'));
     }
 }

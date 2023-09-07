@@ -53,7 +53,6 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         //ahora vamos a guardar
         //dd($request);
         try {

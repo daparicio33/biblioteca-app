@@ -27,6 +27,11 @@ Route::get('/book/{id}',[HomeController::class,'show_book'])->name('show_book')-
 Route::get('/programas',[HomeController::class,'programas'])->name('programas');
 Route::get('/programas/show-book-programas/{id}',[HomeController::class,'show_book_programas'])
 ->name('show_book_programas');
+
+Route::get('/categorias',[HomeController::class,'categorias'])->name('categorias');
+Route::get('/categorias/show-book-categorias/{id}',[HomeController::class,'show_book_categorias'])
+->name('show_book_categorias');
+
 Route::post('/book/search',[HomeController::class,'search_book'])->name('search_book');
 Route::get('/panel',[HomeController::class,'index_panel'])->name('panel.index')->middleware('auth');
 /* Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');*/
